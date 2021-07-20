@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<title>Rubrica</title>
+</head>
+<body>
+
+    <div id="rubrica">
+
+    </div>
+
+    <div id="dati">
+
+    </div>
+
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    const URLAPI = "https://reqres.in/api/users?page=2" ;
+
+    fetch(URLAPI).then(j => j.json()).then(users => {
+        var utenti = users.data;
+        var utenteObj = {};
+        console.log(utenti[3].avatar);
+        for(let dato of utenti){
+			let li = document.createElement('li');
+            li.setAttribute("value", "" + utenti.indexOf(dato));	
+			li.innerHTML = dato.first_name;
+				
+			$('#rubrica').append(li);
+
+            utenteObj["id"] += dato.id;
+            
+            console.log(li);
+        }
+
+        console.log(utenti[0]);
+        $('li').on('click', function(){
+           var id = $(this).val();
+           console.log(utenti[id]);
+           $('#dati').html("<img width='250' src='"+ utenti[id].avatar+"'>");
+        });
+
+    })
+
+
+
+</script>
+</body>
+</html>
