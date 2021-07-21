@@ -11,20 +11,18 @@
 <title>Rubrica</title>
 </head>
 <body>
+    <div class="container">
 
-    <div id="rubrica">
+        <div id="rubrica">
+
+        </div>
+
+        <div class="card" style="width:300px">
+    
+        </div>
 
     </div>
-
-    <div id="dati">
-
-    </div>
-
-
-
-
-
-
+      
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
@@ -32,9 +30,9 @@
 
 <script type="text/javascript">
 
-    const URLAPI = "https://reqres.in/api/users?page=2" ;
+    const URLGET = "https://reqres.in/api/users?page=2" ;
 
-    fetch(URLAPI).then(j => j.json()).then(users => {
+    fetch(URLGET).then(j => j.json()).then(users => {
         var utenti = users.data;
         var utenteObj = {};
         console.log(utenti[3].avatar);
@@ -52,14 +50,20 @@
 
         console.log(utenti[0]);
         $('li').on('click', function(){
-           var id = $(this).val();
-           console.log(utenti[id]);
-           $('#dati').html("<img width='250' src='"+ utenti[id].avatar+"'>");
+            $('.card-body').html("");
+            var id = $(this).val();
+            console.log(utenti[id]);
+            $('.card').html("<img class='card-img-top' src='"+ utenti[id].avatar +"'>");
+            var $cardBody = $("<div class='card-body'></div>");
+            $('.card').append($cardBody);
+            var $nome = $("<h2>" + utenti[id].first_name + " " + utenti[id].last_name + "</h2>");
+            var $email = $("<p>" + utenti[id].email + "</p>") ;
+            $('.card-body').append($nome)
+            $('.card-body').append($email);
         });
 
+
     })
-
-
 
 </script>
 </body>

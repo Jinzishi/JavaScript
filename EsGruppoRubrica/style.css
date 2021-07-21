@@ -1,0 +1,8 @@
+li {
+    font-size: 3rem;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+}
