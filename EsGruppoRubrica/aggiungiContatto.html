@@ -31,6 +31,8 @@
     var responses = [];
 
     function invio(){
+
+        responses.push(localStorage.getItem("utenti"));
 		var nome = document.getElementById("nome").value;
 		var lavoro = document.getElementById("lavoro").value;
 		var dati = {};
