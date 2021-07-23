@@ -22,6 +22,17 @@
         </div>
 
     </div>
+
+    <div class="rubrica2">
+
+    </div>
+
+    <form action="javascript:invio()" method="post">
+        <input type="text" id="nome" placeholder="nome">
+        <input type="text" id="lavoro" placeholder="lavoro">
+        <input type="submit" value="Invio">
+        <button onclick="salva()">Salva</button>
+    </form>
       
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -62,8 +73,38 @@
             $('.card-body').append($email);
         });
 
-
     })
+    var utenti = []; //array di oggetti
+    var utentiObj = []; //array di oggetti
+    utentiObj.push(JSON.parse(localStorage.getItem("utenti")));
+
+    function invio(){
+        $('.rubrica2').html("");
+        var nome = document.getElementById("nome").value;
+        var lavoro = document.getElementById("lavoro").value;
+        var dati = {};
+        dati["name"] = nome;
+        dati["job"] = lavoro;
+        console.log("funzione attivata");
+        fetch('https://reqres.in/api/users', {
+            method: "POST",
+            body: JSON.stringify(dati),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+        }).then(response => response.json()).then(users =>{
+            console.log(users);
+            localStorage.setItem("utenti", JSON.stringify(users));
+            utentiObj.push(JSON.parse(localStorage.getItem("utenti")));
+            console.log(utentiObj);
+            utentiObj.forEach(element => {
+                var $li = $("<li>Nome: " + element.name + " Lavoro: " + element.job + "</li>");
+                $('.rubrica2').append($li);
+    
+            })
+            localStorage.clear();
+            localStorage.setItem("utenti", JSON.stringify(utentiObj));
+        })
+        console.log(utentiObj);
+    };
 
 </script>
 </body>

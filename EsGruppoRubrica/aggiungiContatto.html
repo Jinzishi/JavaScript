@@ -29,10 +29,12 @@
 
     var jsonutenti = {};
     var responses = [];
-
+    var utenti = [];
+    $(document).on('load',function(){
+    })
     function invio(){
-
-        responses.push(localStorage.getItem("utenti"));
+        
+        responses.push(JSON.parse(localStorage.getItem("utenti")));
 		var nome = document.getElementById("nome").value;
 		var lavoro = document.getElementById("lavoro").value;
 		var dati = {};
@@ -46,18 +48,29 @@
 		}).then(response => response.json()).then(function(response){
             console.log("funzione 2");
             responses.push(response);
-            var res = JSON.stringify(responses);
-            localStorage.setItem("utenti", res)
-            var utenti = localStorage.getItem("utenti");
-            var utentiObj = JSON.parse(utenti);
-            console.log(utentiObj);
-            console.log(localStorage);
+            var utentiObj = [];
             $('#rubrica').html("");
+            responses.forEach(resp => {
+                var res = JSON.stringify(resp);
+                localStorage.setItem("utenti", res)
+                utenti.push(localStorage.getItem("utenti"));
+                console.log(utenti);
+                utentiObj.push(JSON.parse(utenti));
+            })
             utentiObj.forEach(element => {
                 var li = "<li>" +element.name+ " è un " + element.job + "</li>";
                 $('#rubrica').append(li);
-            });
-            //$('#rubrica').html("<li>" +utentiObj[0].name+ " è un " + utentiObj[0].job + "</li>");
+           });
+
+            // var res = JSON.stringify(responses);
+            // localStorage.setItem("utenti", res)
+            // var utenti = localStorage.getItem("utenti");
+            // var utentiObj = JSON.parse(utenti);
+            // $('#rubrica').html("");
+            // utentiObj.forEach(element => {
+            //     var li = "<li>" +element.name+ " è un " + element.job + "</li>";
+            //     $('#rubrica').append(li);
+            // });
         });
 	}
 
